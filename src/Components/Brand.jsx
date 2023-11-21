@@ -1,6 +1,6 @@
 import React, { Fragment, useEffect } from "react";
 import { StyleSheet, css } from "aphrodite/no-important";
-import { useParams, useRouteMatch, Switch, Route } from "react-router-dom";
+import { useParams, useRouteMatch, Switch, Route, useLocation } from "react-router-dom";
 
 import Model from "./Model";
 import SubMenu from "./SubMenu";
@@ -23,10 +23,17 @@ const styles = StyleSheet.create({
 const Brand = () => {
 	const { brand } = useParams();
 	const { url } = useRouteMatch();
+    const location = useLocation();
 
-	useEffect(() => {
-		console.log(JSON.stringify(url));
-	},[url]);
+    // Parse the query string
+    const queryParams = new URLSearchParams(location.search);
+    const context = queryParams.get('context');
+
+    useEffect(() => {
+        console.log(`Brand: ${JSON.stringify(brand)}`);
+        console.log(`Context: ${context}`);
+    }, [brand, context]);
+
 
 	return (
 		<Fragment>
